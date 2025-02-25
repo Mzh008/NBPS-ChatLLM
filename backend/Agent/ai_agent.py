@@ -492,12 +492,11 @@ def build_advanced_rag_agent_chain_of_thought(index_path: str,
     ]
 
     # ---------- (C) Memory ----------
-    # ---------- (C) 内存组件 ----------
-    # 使用窗口式记忆和摘要记忆
+    # Using window memory
     window_memory = ConversationBufferWindowMemory(
-        k=window_size,  # 窗口大小
-        memory_key="chat_history",  # 存储器键
-        return_messages=True  # 带回消息
+        k=window_size,  # window size
+        memory_key="chat_history",  # memory key
+        return_messages=True  # message returned
     )
     summary_memory = ConversationSummaryMemory(llm=base_llm, memory_key="summary")
 
