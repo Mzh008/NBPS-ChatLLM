@@ -393,43 +393,29 @@ class LanguageDetectionTool:
     def detect_language(text: str) -> str:
         """
         Detect the language type of the input text.
-        检测输入文本的语言类型。
-
         :param text: User's input text
-        :param text: 用户输入的文本
-
         :return: "chinese" or "english"
-        :return: "chinese" 或 "english"
         """
         if re.search(r'[\u4e00-\u9fff]', text):  # Check if characters belong to Chinese
-            # 检测是否包含汉字
             return "chinese"
         elif re.fullmatch(r'[A-Za-z\s]+', text):  # Check if it is pure English
-            # 检测是否为纯英文
             return "english"
         else:
             return "mixed"  # 当内容包括中英文或无法分类时返回
-            # 返回 “混合” 类型
 
     def run(self, text: str) -> str:
         """
         Use the detection feature and return a preferred response language.
-        使用检测功能，并返回建议回答语言。
-
         :param text: Input text for detection
-        :param text: 检测的输入文本
-
         :return: Suggested response language
-        :return: 建议的回答语言
         """
-        language = self.detect_language(text)  # 检测文本语言类型
+        language = self.detect_language(text) 
         if language == "chinese":
-            return "回答语言：中文"  # 中文场景建议中文作为回答语言
+            return "回答语言：中文" 
         elif language == "english":
-            return "Response Language: English"  # 英文场景建议英文回答
+            return "Response Language: English"  
         else:
             return "Unable to determine a clear language. Suggest handling both Chinese and English content separately."
-            # 无法判断明确语言，建议分别处理中文和英文内容。
 
 
 def create_language_detection_tool() -> Tool:
