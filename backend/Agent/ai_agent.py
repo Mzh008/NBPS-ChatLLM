@@ -401,7 +401,7 @@ class LanguageDetectionTool:
         elif re.fullmatch(r'[A-Za-z\s]+', text):  # Check if it is pure English
             return "english"
         else:
-            return "mixed"  # 当内容包括中英文或无法分类时返回
+            return "mixed"  # 
 
     def run(self, text: str) -> str:
         """
