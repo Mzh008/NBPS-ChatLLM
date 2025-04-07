@@ -8,6 +8,28 @@ def Ask(user_input: str):
     """
     import logging
     from Agent.ai_agent import build_advanced_rag_agent_chain_of_thought
+    from backend.redis_cache import get_cached_response, cache_response
+
+    # 初始化日志记录模块
+    # Initialize the logging module
+    logging.basicConfig(level=logging.INFO)
+    
+    # 检查查询是否已缓存
+    # Check if the query is cached
+    cached_response = get_cached_response(user_input)
+    if cached_response:
+        logging.info("Cache hit")
+        return cached_response
+    
+    # 如果没有缓存，继续正常处理
+    logging.info("Cache miss")
+    
+    """
+    对特定用户的输入(user_input)进行处理，调用AI Agent并返回结果。
+    Process the user's input (user_input), invoke the AI Agent, and return the response.
+    """
+    import logging
+    from Agent.ai_agent import build_advanced_rag_agent_chain_of_thought
 
     # 初始化日志记录模块
     # Initialize the logging module
@@ -91,6 +113,22 @@ def Ask(user_input: str):
     }
 
     logging.info(f"输入参数: {input_params}")  # 记录输入日志 / Log the input parameters
+    try:
+        # 调用Agent处理输入
+        # Invoke the Agent to process the input
+        response = agent_chain.invoke(input_params)
+
+        # 将Agent的响应存储到窗口记忆
+        # Store the Agent's response in the chat window memory
+        window_memory.chat_memory.add_message({"role": "agent", "content": response})
+
+        # 缓存响应以供将来使用
+        # Cache the response for future use
+        cache_response(user_input, response)
+        
+        # 返回Agent的响应给用户
+        # Return the Agent's response to the user
+        return f"{response}"
 
     try:
         # 调用Agent处理输入
