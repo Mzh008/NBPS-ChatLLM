@@ -1,0 +1,7 @@
+/* 桌面设备CSS */
+/* Desktop device CSS */
+.gradio-container {
+    max-width: 800px !important;
+    margin: 0 auto !important;
+    padding: 20px !important;
+}
