@@ -28,3 +28,5 @@ transformers~=4.46.1
 opencv-python~=4.10.0.84
 requests~=2.32.3
 pydantic~=2.9.2
+redis
+Hashlib
